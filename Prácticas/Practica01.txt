@@ -1,0 +1,10 @@
+El orden de los patrones importa
+El lexema mas largo posible se intentara reconcer
+
+Reconocer el Lexema mas largo posible << se van encolando
+
+Accion pre-def en Flex
+ECHO -> yytext
+
+Generar una regla por cada categoria lexica del sistema
+
