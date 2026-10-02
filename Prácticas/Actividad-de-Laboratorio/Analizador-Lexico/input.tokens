@@ -1,0 +1,11 @@
+<IF, if>
+<IDENTIFICADOR, x>
+<ASIGNACION, :=>
+<ENTERO, 40>
+<THEN, then>
+<BEGIN, begin>
+<IDENTIFICADOR, x>
+<ASIGNACION, :=>
+<REAL, 9.10>
+<PUNTO_COMA, ;>
+<END, end>

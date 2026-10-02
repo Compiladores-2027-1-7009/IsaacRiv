@@ -11,6 +11,8 @@ void token(char *clase, char *valor){fprintf(salida, "<%s, %s>\n", clase, valor)
 %}
 
 %option noyywrap
+    /*Estado para leer multiples comentarios*/
+%x COMENTARIO
 
 DIGITO  [0-9]
 LETRA   [a-zA-Z]
@@ -28,12 +30,12 @@ IDENT   {LETRA}{ALNUM}*
 
 "--".* {/* Comentario de una línea */}
 
-"<*"([^*]|\*+[^*>])*"*>"    { 
-    for(int i = 0; i < yyleng; i++){
-        if(yytext[i] == '\n')
-            linea++;
-    }
-}
+    /* Comentarios multilínea */
+    /*Realizamos mejor una transicion de estados para evitar erorres*/
+"<*" {BEGIN(COMENTARIO);}
+<COMENTARIO>"*>" {BEGIN(INITIAL);}
+<COMENTARIO>\n {linea++;}
+<COMENTARIO>. {/* Ignorar contenido */}
 
     /*Números*/
     /* Número real */
@@ -41,9 +43,6 @@ IDENT   {LETRA}{ALNUM}*
 
     /* Número entero */
 {DIGITO}+   { token("ENTERO", yytext);}
-
-    /* Identificadores*/
-{IDENT}     {token("IDENTIFICADOR", yytext);}
 
     /* Cadenas*/
 \"([^\"\n]|\\.)*\"  {token("CADENA", yytext);}
@@ -64,6 +63,9 @@ IDENT   {LETRA}{ALNUM}*
 "begin" {token("BEGIN", yytext);}
 "end"   {token("END", yytext);}
 "not"   {token("NOT", yytext);}
+
+    /* Identificadores*/
+{IDENT}     {token("IDENTIFICADOR", yytext);}
 
     /* Operadores aritméticos*/
 
