@@ -1,0 +1,2 @@
+int count = 10;
+int r = count + 5;

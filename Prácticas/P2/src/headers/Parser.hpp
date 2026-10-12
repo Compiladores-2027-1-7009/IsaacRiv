@@ -19,14 +19,21 @@ namespace C_1
     Parser(Lexer *lexer);
     ~Parser();
     
-    void programa(); //función del símbolo incial
-    /**
-     *
-     *
-     * Funciones del resto de NTs 
-     *
-     *
-     */
+    void programa(); //función del símbolo incial                                                            
+    void declaraciones();                                       
+    void declaraciones_p();                                       
+    void declaracion();                                       
+    void tipo();                                       
+    void lista_var();                                       
+    void lista_var_p();                                       
+    void sentencias();                                       
+    void sentencias_p();                                       
+    void sentencia();                                       
+    void expresion();                                       
+    void expresion_p();                                       
+    void e_termino();                                       
+    void e_termino_p();                                         
+    void e_factor();
     
     Token eat();
     void error(string msg);
