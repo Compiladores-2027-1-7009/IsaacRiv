@@ -1,7 +1,9 @@
-int numero = 10;
-int limite = 20;
+int numero, limite;
 
-if(numero < limite)
+numero = 10;
+limite = 20;
+
+if (numero - limite)
     numero = numero + 1;
 else
     numero = numero - 1;
