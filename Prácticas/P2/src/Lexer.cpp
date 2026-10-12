@@ -329,10 +329,10 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[42] =
     {   0,
-        0,    0,   21,   19,    1,    2,   15,   16,    8,    9,
-       13,   10,   11,   17,   14,   12,   18,   18,   18,   18,
-       18,    1,    0,   17,   18,   18,   18,    3,   18,   18,
-       17,   18,   18,    6,   18,    4,   18,   18,    7,    5,
+        0,    0,   21,   19,   17,   18,   13,   14,    6,    7,
+       11,    8,    9,   15,   12,   10,   16,   16,   16,   16,
+       16,   17,    0,   15,   16,   16,   16,    1,   16,   16,
+       15,   16,   16,    4,   16,    2,   16,   16,    5,    3,
         0
     } ;
 
@@ -575,7 +575,9 @@ YY_DECL
 #line 47 "lexer.ll"
 
 
-#line 579 "Lexer.cpp"
+   /* Palabras reservadas */
+
+#line 581 "Lexer.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -634,113 +636,112 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 49 "lexer.ll"
-{}
+#line 51 "lexer.ll"
+{ return if_token; }
 	YY_BREAK
 case 2:
-/* rule 2 can match eol */
 YY_RULE_SETUP
-#line 50 "lexer.ll"
-{line++;}
+#line 52 "lexer.ll"
+{ return else_token; }
 	YY_BREAK
-/* Palabras reservadas */
 case 3:
 YY_RULE_SETUP
-#line 54 "lexer.ll"
-{ return if_token; }
+#line 53 "lexer.ll"
+{ return while_token; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 55 "lexer.ll"
-{ return else_token; }
+#line 54 "lexer.ll"
+{ return int_token; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 56 "lexer.ll"
-{ return while_token; }
-	YY_BREAK
-case 6:
-YY_RULE_SETUP
-#line 57 "lexer.ll"
-{ return int_token; }
-	YY_BREAK
-case 7:
-YY_RULE_SETUP
-#line 58 "lexer.ll"
+#line 55 "lexer.ll"
 { return float_token; }
 	YY_BREAK
 /* Signos de puntuación y operadores */
+case 6:
+YY_RULE_SETUP
+#line 59 "lexer.ll"
+{ return mult_token; }
+	YY_BREAK
+case 7:
+YY_RULE_SETUP
+#line 60 "lexer.ll"
+{ return sum_token; }
+	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 62 "lexer.ll"
-{ return mult_token; }
+#line 61 "lexer.ll"
+{ return rest_token; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 63 "lexer.ll"
-{ return sum_token; }
+#line 62 "lexer.ll"
+{ return div_token; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 64 "lexer.ll"
-{ return rest_token; }
+#line 63 "lexer.ll"
+{ return equal_token; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 65 "lexer.ll"
-{ return div_token; }
+#line 64 "lexer.ll"
+{ return coma_token; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 66 "lexer.ll"
-{ return equal_token; }
+#line 65 "lexer.ll"
+{ return pcoma_token; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 67 "lexer.ll"
-{ return coma_token; }
+#line 66 "lexer.ll"
+{ return pleft_token; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 68 "lexer.ll"
-{ return pcoma_token; }
-	YY_BREAK
-case 15:
-YY_RULE_SETUP
-#line 69 "lexer.ll"
-{ return pleft_token; }
-	YY_BREAK
-case 16:
-YY_RULE_SETUP
-#line 70 "lexer.ll"
+#line 67 "lexer.ll"
 { return pright_token; }
 	YY_BREAK
 /* Números e identificadores */
-case 17:
+case 15:
 YY_RULE_SETUP
-#line 74 "lexer.ll"
+#line 71 "lexer.ll"
 { return num_token; }
 	YY_BREAK
-case 18:
+case 16:
 YY_RULE_SETUP
-#line 75 "lexer.ll"
+#line 72 "lexer.ll"
 { return id_token; }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 77 "lexer.ll"
+#line 74 "lexer.ll"
 { return t_eof;}
+	YY_BREAK
+case 17:
+YY_RULE_SETUP
+#line 76 "lexer.ll"
+{}
+	YY_BREAK
+case 18:
+/* rule 18 can match eol */
+YY_RULE_SETUP
+#line 77 "lexer.ll"
+{line++;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 79 "lexer.ll"
+#line 78 "lexer.ll"
 { cout << "ERROR LEXICO " << yytext << endl;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 81 "lexer.ll"
+#line 80 "lexer.ll"
 ECHO;
 	YY_BREAK
-#line 744 "Lexer.cpp"
+#line 745 "Lexer.cpp"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1701,7 +1702,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 81 "lexer.ll"
+#line 80 "lexer.ll"
 
 
 int yyFlexLexer::yywrap(){
