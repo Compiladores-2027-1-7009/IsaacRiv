@@ -205,63 +205,63 @@ int ParserLL::parse()
   //map<Token, int>::iterator accion;    
   //vector<int> body;    
   //Symbol X;
+    // Cargamos los símbolos, producciones y la tabla predictiva M[A, a]
+    loadSyms();
+    loadProds();
+    loadTable();
+
+    //Despues debemos de inicializar la pila con los IDs enteros
     stack<int> pila;
     pila.push(t_eof);
     pila.push(PROGRAMA);
 
+    // Obtener el primer token de la entrada
     token = eat();
 
+    //Implementamos el algoritmo de análisis sintáctico predictivo
     while (!pila.empty())
     {
-      int topIndex = pila.top();
-      pila.pop();
+        int topIndex = pila.top();
+        pila.pop();
 
-      Symbol X = grammar.getSym(topIndex);
+        Symbol X = grammar.getSym(topIndex);
 
-      if (X.getType() == terminal)
-      {
-        if (X.getToken() == token)
-        {
-          if (token == t_eof)
-          {
-            aceptar("Programa válido :)");
-            return 0; // Accept
-          }
-          token = eat();
-        }
-        else
-        {
-          error("Error sintáctico: se esperaba un token específico");
-          return -1;
-        }
-      }
-      else
-      {
-        NoTerm currentNoTerm = X.getNoTerm();
-        if (table[currentNoTerm].find(token) != table[currentNoTerm].end())
-        {
-          int prodId = table[currentNoTerm][token];
-          Production p = grammar.getProd(prodId);
-          vector<int> body = p.getBody();
-
-          if (body.size() > 0 && body[0] != strEmpty)
-          {
-            for (int i = body.size() - 1; i >= 0; i--)
-            {
-              pila.push(body[i]);
+        // CASO A: El símbolo en el tope es un Terminal
+        if(X.getType() == terminal){
+            if(X.getToken() == token){
+                if(token == t_eof){
+                    aceptar("La cadena es aceptada");
+                    return 0; // Aceptación exitosa
+                }
+                token = eat(); // Consumir token y avanzar en la entrada
+            }else{
+                error("Error sintáctico: se esperaba un token específico");
+                return -1;
             }
-          }
+            // CASO B: El símbolo en el tope es un No Terminal
+        }else{
+            NoTerm currentNoTerm = X.getNoTerm();
+
+            //Busqueda segura en la tabla predictiva M[currentNoTerm][token]
+            if(table.find(currentNoTerm) != table.end() && 
+            table[currentNoTerm].find(token) != table[currentNoTerm].end()){
+                int prodId = table[currentNoTerm][token];
+                Production p = grammar.getProd(prodId);
+                vector<int> body = p.getBody();
+
+                //Empujar los elementos en orden inverso ignorando epsilon (strEmpty)
+                for(int i = (int)body.size() - 1; i >= 0; i--){
+                    if(body[i] != strEmpty){
+                        pila.push(body[i]);
+                    }
+                }
+            }else{
+                error("Error sintáctico: no hay producción en la tabla predictiva");
+                return -1;
+            }
         }
-        else
-        {
-          error("Error sintáctico: no hay producción en la tabla predictiva");
-          return -1;
-        }
-      }
     }
     return -1;
-
-  
 }
 
 void ParserLL::error(string msg)

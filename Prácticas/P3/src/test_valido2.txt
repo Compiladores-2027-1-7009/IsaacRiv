@@ -1,0 +1,9 @@
+int num, limite;
+
+num = 10;
+limite = 20;
+
+if (numero - limite)
+    num = num + 1;
+else
+    num = num - 1;

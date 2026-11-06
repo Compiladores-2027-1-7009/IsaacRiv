@@ -1,0 +1,8 @@
+float base , altura , area;
+base = 9.3;
+altura = 1.0;
+area = base * altura / 2.0;
+if ( area )
+  base = area;
+else
+  altura = area;
